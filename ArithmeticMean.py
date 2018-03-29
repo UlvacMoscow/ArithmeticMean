@@ -68,7 +68,7 @@ group_students = {'student_1':
                   {'name': 'Mariya', 'sername': 'Tulebaeva',
                    'sex': 'woman', 'experience in programming': False,
                    'homework1': 10, 'homework2': 9,
-                   'homework3': 9, 'homework4': 10,
+                   'homework3': 10, 'homework4': 10,
                    'homework5': 10, 'exam': 10},
                   'student_13':
                   {'name': 'Alex', 'sername': 'Maior',
@@ -110,8 +110,8 @@ def best_of_the_best():
                         print('Лучшие студенты')
                     best_student = round((best_mean_homework / j * 0.6 + group_students[student]['exam'] * 0.4), 2)
             i += 1
-        return print('Лучший студент {} {} c интегральной оценкой {}'.format(
-            group_students[student]['name'], group_students[student]['sername'], best_student))
+    return print('Лучший студент {} {} c интегральной оценкой {}'.format(
+        group_students[student]['name'], group_students[student]['sername'], best_student))
 
 
 def arithmetic_mean_on_group():
