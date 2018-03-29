@@ -69,7 +69,7 @@ group_students = {'student_1':
                    'sex': 'woman', 'experience in programming': False,
                    'homework1': 10, 'homework2': 9,
                    'homework3': 9, 'homework4': 10,
-                   'homework5': 8, 'exam': 8},
+                   'homework5': 10, 'exam': 10},
                   'student_13':
                   {'name': 'Alex', 'sername': 'Maior',
                    'sex': 'man', 'experience in programming': True,
@@ -78,17 +78,53 @@ group_students = {'student_1':
                    'homework5': 9, 'exam': 10}
                 }
 
+def value_homeworks():
+    amount_homework = 0
+    for student in group_students:
+        for kk in group_students[student]:
+            if kk.startswith('homework'):
+                if int(kk[len('homework'):len(kk)]) > amount_homework:
+                    amount_homework = int(kk[len('homework'):len(kk)])
+    return amount_homework
+
+
+def best_of_the_best():
+    best_student = 0
+    best_mean_homework = 0
+    for student in group_students:
+        c = 0
+        i = 1
+        j = value_homeworks()
+        while i <= j:
+            c += group_students[student]['homework{}'.format(i)]
+            print(c)
+            if i == j:
+                print("here", best_mean_homework, "c = ", c)
+                if best_mean_homework <= c:
+                    best_mean_homework = c
+                    print(best_mean_homework)
+                    print('среднее значение ',
+                          round((best_mean_homework / j * 0.6 + group_students[student]['exam'] * 0.4), 2))
+                    other_best_student = round((best_mean_homework / j * 0.6 + group_students[student]['exam'] * 0.4), 2)
+                    if best_student >= other_best_student:
+                        print('Лучшие студенты')
+                    best_student = round((best_mean_homework / j * 0.6 + group_students[student]['exam'] * 0.4), 2)
+            i += 1
+        return print('Лучший студент {} {} c интегральной оценкой {}'.format(
+            group_students[student]['name'], group_students[student]['sername'], best_student))
+
 
 def arithmetic_mean_on_group():
     sum_all_group = 0
     k = 0
+    j = value_homeworks()
     for student in group_students:
         i = 1
-        while i < 6:
+        while i <= j:
             sum_all_group += group_students[student]['homework{}'.format(i)]
             i += 1
             k += 1
-    print('Средняя оценка за домашние задания по группе: X = ', sum_all_group/k)
+    print('Средняя оценка за домашние задания по группе: X = ', round(sum_all_group/k, 2))
 
 
 def exam_mean_on_group():
@@ -97,21 +133,21 @@ def exam_mean_on_group():
     for student in group_students:
         sum_all_group += group_students[student]['exam']
         k += 1
-    print('Средняя оценка за экзамен: Y = ', sum_all_group/k)
+    print('Средняя оценка за экзамен: Y = ', round(sum_all_group/k, 2))
 
 
 def man_group_mean_result(param, value):
     k = 0
     sum_all_group = 0
+    j = value_homeworks()
     for student in group_students:
         if group_students[student][param] == value:
             i = 1
-            while i < 6:
-                # print(group_students[student]['homework{}'.format(i)])
+            while i <= j:
                 sum_all_group += group_students[student]['homework{}'.format(i)]
                 i += 1
                 k += 1
-    return sum_all_group/k
+    return round(sum_all_group/k, 2)
 
 
 def man_group_mean_result_exams(param, value):
@@ -121,7 +157,7 @@ def man_group_mean_result_exams(param, value):
         if group_students[student][param] == value:
             sum_all_group += group_students[student]['exam']
             k += 1
-    return sum_all_group/k
+    return round(sum_all_group/k, 2)
 
 
 while True:
@@ -167,6 +203,8 @@ while True:
         arithmetic_mean_on_group()
     if use_command.upper() == "Y":
         exam_mean_on_group()
+    if use_command.upper() == "S":
+        best_of_the_best()
     if use_command.upper() == "Q":
         break
 
