@@ -100,7 +100,7 @@ def best_of_the_best():
             if i == j:
                 best_student = round((c / j * 0.6 + group_students[student]['exam'] * 0.4), 2)
                 evaluations.append(best_student)
-                group_students[student].update({'integral evaluation' : best_student, 'id' : student})
+                group_students[student].update({'integral evaluation' : best_student})
             i += 1
     for student in group_students:
         if group_students[student]['integral evaluation'] == max(evaluations):
