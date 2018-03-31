@@ -90,7 +90,6 @@ def value_homeworks():
 
 def best_of_the_best():
     evaluations = []
-    best_students = []
     for student in group_students:
         c = 0
         i = 1
@@ -104,10 +103,10 @@ def best_of_the_best():
             i += 1
     for student in group_students:
         if group_students[student]['integral evaluation'] == max(evaluations):
-            best_students.append('Лучший студент(ы){} {} {} c интегральной оценкой {}'.format(student,
+            print('Лучший студент(ы){} {} {} c интегральной оценкой {}'.format(student,
                          group_students[student]['name'], group_students[student]['sername'],
                          group_students[student]['integral evaluation']))
-    return print(best_students)
+
 
 
 
