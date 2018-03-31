@@ -67,8 +67,8 @@ group_students = {'student_1':
                   'student_12':
                   {'name': 'Mariya', 'sername': 'Tulebaeva',
                    'sex': 'woman', 'experience in programming': False,
-                   'homework1': 10, 'homework2': 9,
-                   'homework3': 10, 'homework4': 10,
+                   'homework1': 8, 'homework2': 9,
+                   'homework3': 9, 'homework4': 10,
                    'homework5': 10, 'exam': 10},
                   'student_13':
                   {'name': 'Alex', 'sername': 'Maior',
@@ -89,29 +89,26 @@ def value_homeworks():
 
 
 def best_of_the_best():
-    best_student = 0
-    best_mean_homework = 0
+    evaluations = []
+    best_students = []
     for student in group_students:
         c = 0
         i = 1
         j = value_homeworks()
         while i <= j:
             c += group_students[student]['homework{}'.format(i)]
-            print(c)
             if i == j:
-                print("here", best_mean_homework, "c = ", c)
-                if best_mean_homework <= c:
-                    best_mean_homework = c
-                    print(best_mean_homework)
-                    print('среднее значение ',
-                          round((best_mean_homework / j * 0.6 + group_students[student]['exam'] * 0.4), 2))
-                    other_best_student = round((best_mean_homework / j * 0.6 + group_students[student]['exam'] * 0.4), 2)
-                    if best_student >= other_best_student:
-                        print('Лучшие студенты')
-                    best_student = round((best_mean_homework / j * 0.6 + group_students[student]['exam'] * 0.4), 2)
+                best_student = round((c / j * 0.6 + group_students[student]['exam'] * 0.4), 2)
+                evaluations.append(best_student)
+                group_students[student].update({'integral evaluation' : best_student, 'id' : student})
             i += 1
-    return print('Лучший студент {} {} c интегральной оценкой {}'.format(
-        group_students[student]['name'], group_students[student]['sername'], best_student))
+    for student in group_students:
+        if group_students[student]['integral evaluation'] == max(evaluations):
+            best_students.append('Лучший студент(ы){} {} {} c интегральной оценкой {}'.format(student,
+                         group_students[student]['name'], group_students[student]['sername'],
+                         group_students[student]['integral evaluation']))
+    return print(best_students)
+
 
 
 def arithmetic_mean_on_group():
